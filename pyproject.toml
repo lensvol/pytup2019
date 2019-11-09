@@ -6,8 +6,10 @@ authors = ["Kirill Borisov <lensvol@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "=3.6.9"
 libcst = "^0.2.2"
+fissix = "^19.2b1"
+bowler = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.9"
