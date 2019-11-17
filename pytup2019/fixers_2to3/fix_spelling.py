@@ -10,6 +10,9 @@ class FixSpelling(BaseFix):
     PATTERN = """STRING"""
 
     def transform(self, node, results):
+        if " " not in node.value:
+            return node
+
         for pattern, replacement in self.CORRECTIONS.items():
             compiled = re.compile(r"\b{0}\b".format(pattern), re.IGNORECASE)
             node.value = re.sub(compiled, replacement, node.value)
