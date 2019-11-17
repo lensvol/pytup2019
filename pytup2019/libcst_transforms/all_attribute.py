@@ -1,5 +1,3 @@
-import difflib
-import sys
 from typing import Optional, Union
 
 import libcst as cst
@@ -19,7 +17,8 @@ from libcst import (
     Comma,
     LeftSquareBracket,
     RightSquareBracket,
-    ClassDef)
+    ClassDef,
+)
 from libcst.metadata import ScopeProvider, GlobalScope
 
 
@@ -32,7 +31,7 @@ class AllAttributeTransformer(cst.CSTTransformer):
 
     def process_name(self, node: Union["FunctionDef", "ClassDef"]) -> None:
         scope = self.get_metadata(ScopeProvider, node)
-        if isinstance(scope, GlobalScope) and not node.name.value.startswith('_'):
+        if isinstance(scope, GlobalScope) and not node.name.value.startswith("_"):
             self.names.append(node.name.value)
 
     def visit_FunctionDef(self, node: "FunctionDef") -> Optional[bool]:
@@ -108,19 +107,3 @@ class AllAttributeTransformer(cst.CSTTransformer):
         modified_body.append(Newline())
         modified_body.append(all_names)
         return updated_node.with_changes(body=modified_body)
-
-
-if __name__ == "__main__":
-    with open(sys.argv[1], "r") as fp:
-        source = fp.read()
-
-    transformer = AllAttributeTransformer()
-
-    tree = cst.parse_module(source)
-    wrapped_tree = cst.MetadataWrapper(tree)
-    modified_tree = wrapped_tree.visit(transformer)
-    print(
-        "".join(
-            difflib.unified_diff(source.splitlines(1), modified_tree.code.splitlines(1))
-        )
-    )
