@@ -3,15 +3,9 @@ from typing import Optional
 
 from bowler import Query, Filename, Capture, LN
 
-pattern = '''
-STRING
-'''
+pattern = """STRING"""
 
-
-CORRECTIONS = {
-    'json': 'JSON',
-    'yaml': 'YAML',
-}
+CORRECTIONS = {"json": "JSON", "yaml": "YAML"}
 
 
 def corrector(node: LN, capture: Capture, filename: Filename) -> Optional[LN]:
@@ -22,10 +16,5 @@ def corrector(node: LN, capture: Capture, filename: Filename) -> Optional[LN]:
     return node
 
 
-if __name__ == '__main__':
-    (
-        Query("../samples/bad_spelling.py")
-        .select(pattern)
-        .modify(corrector)
-        .diff()
-    )
+if __name__ == "__main__":
+    (Query("../samples/bad_spelling.py").select(pattern).modify(corrector).diff())
