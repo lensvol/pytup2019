@@ -1,18 +1,14 @@
-import re
 from typing import Optional
 
 from bowler import Query, Filename, Capture, LN
 
-pattern = """STRING"""
+from pytup2019.utils import fix_spelling
 
-CORRECTIONS = {"json": "JSON", "yaml": "YAML"}
+pattern = """STRING"""
 
 
 def corrector(node: LN, capture: Capture, filename: Filename) -> Optional[LN]:
-    for pattern, replacement in CORRECTIONS.items():
-        compiled_re = re.compile(pattern, re.IGNORECASE)
-        node.value = re.sub(compiled_re, replacement, node.value)
-
+    node.value = fix_spelling(node.value)
     return node
 
 
