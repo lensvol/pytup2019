@@ -6,15 +6,15 @@ _private_constant = []
 
 
 def _private_method():
-    pass
+    return "Json is good!"
 
 
 def sample_global_method():
-    pass
+    return "YaMl! YAMl! yaml!"
 
 
 class SampleClass(object):
-    def inner(self):
+    def inner(self, a=[]):
         pass
 
 
