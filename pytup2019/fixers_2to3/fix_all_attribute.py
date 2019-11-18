@@ -8,9 +8,9 @@ from lib2to3.pytree import type_repr, Leaf
 class FixAllAttribute(BaseFix):
 
     PATTERN = """
-        classdef <'class' classname=any any*>
+        classdef <'class' name=any any*>
         |
-        funcdef <'def' funcname=any any* >
+        funcdef <'def' name=any any* >
     """
 
     def start_tree(self, tree, filename):
@@ -22,10 +22,7 @@ class FixAllAttribute(BaseFix):
         if type_repr(node.parent.type) != "file_input":
             return node
 
-        if "classname" in results:
-            name = results["classname"].value
-        elif "funcname" in results:
-            name = results["funcname"].value
+        name = results["name"].value
 
         if not name.startswith("_"):
             self._names.append(name)
@@ -33,11 +30,6 @@ class FixAllAttribute(BaseFix):
         return node
 
     def finish_tree(self, tree, filename):
-        print(filename)
-
-        if isinstance(tree, Leaf):
-            return
-
         if not self._names:
             return
 
