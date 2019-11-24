@@ -43,6 +43,9 @@ class AllAttributeTransformer(cst.CSTTransformer):
         return None
 
     def leave_Module(self, original_node: "Module", updated_node: "Module") -> "Module":
+        if not self.names:
+            return original_node
+
         modified_body = list(original_node.body)
 
         indented_space = ParenthesizedWhitespace(
