@@ -4,7 +4,7 @@ from bowler import Query, Filename, Capture, LN
 
 from pytup2019.utils import fix_spelling
 
-pattern = """STRING"""
+PATTERN = """STRING"""
 
 
 def corrector(node: LN, capture: Capture, filename: Filename) -> Optional[LN]:
@@ -12,5 +12,5 @@ def corrector(node: LN, capture: Capture, filename: Filename) -> Optional[LN]:
     return node
 
 
-if __name__ == "__main__":
-    (Query("../samples/bad_spelling.py").select(pattern).modify(corrector).diff())
+def get_query(path):
+    return Query(path).select(PATTERN).modify(corrector)
