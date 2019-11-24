@@ -7,9 +7,6 @@ CORRECTIONS = {
 
 
 def fix_spelling(text):
-    if " " not in text:
-        return text
-
     for pattern, replacement in CORRECTIONS.items():
         text = re.sub(pattern, replacement, text)
 
