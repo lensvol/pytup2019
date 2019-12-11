@@ -8,6 +8,7 @@ import libcst as cst
 from pytup2019.libcst_transforms.all_attribute import AllAttributeTransformer
 from pytup2019.libcst_transforms.mutable_args import ArgEmptyInitTransformer
 from pytup2019.libcst_transforms.not_a_in_b import FixNotInConditionOrder
+from pytup2019.libcst_transforms.parenthesized_return import RemoveParenthesesFromReturn
 from pytup2019.libcst_transforms.remove_debugger import RemoveDebuggerInvocations
 from pytup2019.libcst_transforms.spelling import FixAbbreviationSpelling
 
@@ -26,6 +27,7 @@ if __name__ == "__main__":
         FixAbbreviationSpelling(),
         FixNotInConditionOrder(),
         RemoveDebuggerInvocations(),
+        RemoveParenthesesFromReturn(),
     ]
 
     for transformer in transformers:
